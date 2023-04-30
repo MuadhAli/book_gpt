@@ -8,7 +8,7 @@ from langchain import OpenAI, VectorDBQA
 from langchain.document_loaders import DirectoryLoader
 from langchain.document_loaders import UnstructuredPDFLoader
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = '....00'
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
