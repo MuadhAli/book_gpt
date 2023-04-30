@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #010000;
+    transition: background-color 0.3s ease;
+}
+
+.chat-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: red;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-header {
+    background-color: #6b6969;
+    color: #fff;
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.chat-body {
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    height: 90vh;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.chat-message-inner {
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user {
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-start;
+}
+
+.assistant {
+    background-color: #424242;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.chat-footer {
+    padding: 15px;
+    border-top: 1px solid #757272;
+    display: flex;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+#send-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.mode-toggle-btn {
+    width: 40px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mode-toggle-btn::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-color: #040303;
+    border-radius: 50%;
+    border: 10px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .mode-toggle-btn {
+    background-color: #000;
+}
+
+.dark-mode .mode-toggle-btn::after {
+    transform: translateX(20px);
+    background-color: #fff;
+}
+
+.button-auto-question {
+    /* Define your button styles */
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.button-auto-question:hover {
+    /* Define your button hover styles */
+    background-color: #0056b3;
+}
