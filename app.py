@@ -8,7 +8,7 @@ from langchain import OpenAI, VectorDBQA
 from langchain.document_loaders import DirectoryLoader
 from langchain.document_loaders import UnstructuredPDFLoader
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = 'sk-...'
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -35,10 +35,9 @@ def home():
                 texts = text_splitter.split_documents(documents)
                 embeddings = OpenAIEmbeddings(openai_api_key=os.environ['OPENAI_API_KEY'])
                 docsearch = Chroma.from_documents(texts, embeddings)
-                qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch)
+                qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch, return_source_documents=True)
 
                 query = question
-
                 result = qa({"query": query})
 
     return render_template('index.html', question=question, result=result)

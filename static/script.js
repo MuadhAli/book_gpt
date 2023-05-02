@@ -1,11 +1,3 @@
-document.getElementById('mode-toggle-btn').addEventListener('click', function() {
-    document.body.classList.toggle('dark-mode');
-});
-
-
-document.getElementById("mode-slider").addEventListener("change", function() {
-    document.body.classList.toggle("dark-mode");
-});
 
 document.getElementById("send-btn").addEventListener("click", function() {
     sendMessage();

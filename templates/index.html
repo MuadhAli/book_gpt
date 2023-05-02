@@ -15,9 +15,7 @@
             </div>
         <div class="chat-header">
             <h1>Book GPT</h1>
-            <div>
-               <button id="mode-toggle-btn" class="mode-toggle-btn"></button>
-           </div>
+           
         </div>
         
             <div class="chat-body" id="chat-body">
@@ -34,6 +32,17 @@
                             <h2 class="container-result-title">Result</h2>
                             <p class="container-result">{{ result['result'] }}</p>
                             {% endif %}
+                        </p>
+                        <p>
+                           
+                            {% if result and result.get('source_documents') %}
+                <h2 class="container-result-title">Source Documents</h2>
+                <ul class="source-documents">
+                  {% for doc in result['source_documents'] %}
+                  <li>{{ doc }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
                         </p>
                     </div>
                 </div>
@@ -65,99 +74,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    <title>Book gpt</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-  </head>
-  <body>
-    <div class="chat-container" id="chat-container">
-        <div class="pdf">
-            <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="file" class="input input-file" accept=".pdf"/>
-            </div>
-        <div class="chat-header">
-            <h1>Book GPT</h1>
-        </div>
-        
-            <div class="chat-body" id="chat-body">
-                <div class="chat-message">
-                
-                    <div class="chat-message-inner user">
-                        <p>Hello!</p>
-                    </div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-inner assistant">
-                        <p>
-                            {% if result %}
-                            <h2 class="container-result-title">Result</h2>
-                            <p class="container-result">{{ result['result'] }}</p>
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-                </div>
-                <div class="chat-footer">
-
-                    <input type="text" id="user-input" name="query" placeholder="Enter your question you want to ask" class="input input-query" value="{{ question }}"/>
-                    <input type="submit"  id="send-btn" value="Submit" class="button button-submit" />
-
-                    </div>
-             </div>
-             <button type="button" id="auto-question-btn" class="button button-auto-question" onclick="populateQuestion()">Pitch Creator</button>
-             <button type="button" id="auto-question-btn" class="button button-auto-question" onclick="populateQuestion1()">Blurb Creator</button>
-
-
-                
-            </form>
-
-            </div>
-    </div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-
-    </body>
-  </body>
-</html>
-
- -->
-
-
-
-
-
-
-
- 
