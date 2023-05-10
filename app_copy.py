@@ -5,7 +5,7 @@
 # from pathlib import Path
 # from llama_index import GPTSimpleVectorIndex, LLMPredictor, ServiceContext, download_loader
 
-# os.environ["OPENAI_API_KEY"] = "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"
+# os.environ["OPENAI_API_KEY"] = ""
 
 # app = Flask(__name__)
 
@@ -38,7 +38,7 @@ import os
 from pathlib import Path
 from llama_index import GPTSimpleVectorIndex, LLMPredictor, ServiceContext, download_loader
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 
 app = Flask(__name__)
 
