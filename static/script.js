@@ -39,16 +39,3 @@ function sendMessage() {
 });
 
 
-function populateQuestion() {
-    // Set the value of the user-input field
-    document.getElementById('user-input').value = 'Your question for Pitch Creator';
-    // Submit the form
-    document.getElementById('send-btn').click();
-  }
-
-  function populateQuestion1() {
-    // Set the value of the user-input field
-    document.getElementById('user-input').value = 'Your question for Blurb Creator';
-    // Submit the form
-    document.getElementById('send-btn').click();
-  }

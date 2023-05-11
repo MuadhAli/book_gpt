@@ -9,7 +9,7 @@ body {
 .chat-container {
     max-width: 1200px;
     margin: 50px auto;
-    background-color: red;
+    background-color: rgb(57, 56, 56);
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -131,3 +131,4 @@ body {
     /* Define your button hover styles */
     background-color: #0056b3;
 }
+
