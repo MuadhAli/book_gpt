@@ -1,62 +1,161 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-    <title>Book gpt</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .chat-form { display: none; }
+        .prompt-spinner-loader, .pdf-spinner-loader { display: none; }
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 15px;
+            height: 100vh;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="chat-container" id="chat-container">
-        <div class="pdf">
-            <form action="/ask" method="post" enctype="multipart/form-data">
-                <label for="file">Upload PDF file:</label>
-                <input type="file" id="file" name="file" accept=".pdf">
-                <br>
-        </div>
-        <div class="chat-header">
-            <h1>Book GPT</h1>
-
-        </div>
-
-        <div class="chat-body" id="chat-body">
-            <div class="chat-message">
-
-                <div class="chat-message-inner user">
-                    <p>Hello!</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <form class="pdf-form">
+                        <div class="mb-3">
+                            <label class="form-label">Select Book</label>
+                            <div class="btn-group-vertical" role="group" aria-label="Book Selection">
+                                <button type="button" class="btn btn-outline-primary select_book" value="options">Mastering Options Delta Trading</button>
+                                <button type="button" class="btn btn-outline-primary select_book" value="family">Family Council CookBook</button>
+                                <button type="button" class="btn btn-outline-primary select_book" value="honurable">Honourable Justice J. Kanakaraj</button>
+                                <button type="button" class="btn btn-outline-primary select_book" value="mask">DO FACE MASKS REALLY WORK?</button>
+                                <button type="button" class="btn btn-outline-primary select_book" value="truth">The Shocking Truth of Paracetamol</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn_load_book">Load Book</button>
+                    </form>
                 </div>
             </div>
-            <div class="chat-message">
-                <div class="chat-message-inner assistant">
-                    <p>
-                        {% if question %}
-                    <h3>Your Question: {{ question }}</h3>
-                    <h3>Answer:</h3>
-                    <p>{{ answer }}</p>
-                    {% endif %}
-                    </p>
+            <div class="col-md-9">
+                <center>
+                    <br>
+                    <div class="spinner-border pdf-spinner-loader" role="status"><span class="visually-hidden">Loading...</span></div>
+                </center>
 
+                <form class="chat-form">
+
+                    <div class="mb-3">
+                        <label class="form-label"> Select Prompt </label>
+                        <select class="form-select select_prompt">
+                            <option value="">select something...</option>
+                            <option value="I want to set up my personal brand as an author, write an introductory post for my LinkedIn profile.">I want to set up my personal brand as an author, write an introductory post for my LinkedIn profile.</option>
+                            <option value="Write a brief and compelling synopsis of my book that can be added to my social media handles and website.">Write a brief and compelling synopsis of my book that can be added to my social media handles and website.</option>
+                            <option value="Write a striking profile for my author website.">Write a striking profile for my authorwebsite.</option>
+                            <option value="Define the specific target audience for my book to help me promote it on social media.">Define the specific target audience for my book to help me promote it on social media.</option>
+                            <option value="Which social media platform is the best suited for promoting my book among its target audience?">Which social media platform is the best suited for promoting my book among its target audience?</option>
+                            <option value="Write a compelling introductory post for my book release.">Write a compelling introductory post for my book release.</option>
+                            <option value="Give me a detailed content plan to promote my book among its target audience on Twitter/ LinkedIn/ Instagram. (either one of these platforms)">Give me a detailed content plan to promote my book among its target audience on Twitter/ LinkedIn/ Instagram. (either one of these platforms)</option>
+                            <option value="Give me interesting and relevant content ideas to interact with my target audience on LinkedIn/ Twitter/ IG.">Give me interesting and relevant content ideas to interact with my target audience on LinkedIn/ Twitter/ IG.</option>
+                            <option value="Compile 5 powerful quotes from my book that I can use to effectively promote my book across social media.">Compile 5 powerful quotes from my book that I can use to effectively promote my book across social media.</option>
+                            <option value="Generate 5 buzzworthy blog ideas from my book that appeals to my target audience to help promote my book on social media.">Generate 5 buzzworthy blog ideas from my book that appeals to my target audience to help promote my book on social media.</option>
+                            <option value="Write a 500-word blog article on a relevant and intriguing topic from my book to create a buzz among the target audience.">Write a 500-word blog article on a relevant and intriguing topic from my book to create a buzz among the target audience.</option>
+                            <option value="Give me 5 carousel post ideas to promote my book among its target audience on LinkedIn.">Give me 5 carousel post ideas to promote my book among its target audience on LinkedIn.</option>
+                            <option value="Give me 5 Twitter thread ideas to promote my book among its target audience on Twitter.">Give me 5 Twitter thread ideas to promote my book among its target audience on Twitter.</option>
+                            <option value="Write a compelling LinkedIn carousel post relevant to my book and its target audience.">Write a compelling LinkedIn carousel post relevant to my book and its target audience.</option>
+                            <option value="Write a Twitter thread on a buzzworthy topic from my book to help promote it among its target audience.">Write a Twitter thread on a buzzworthy topic from my book to help promote it among its target audience.</option>
+                            <option value="Write Giveaway posts to promote my book among its target audience.">Write Giveaway posts to promote my book among its target audience.</option>
+                            <option value="Generate 3 funny meme ideas to promote my book among its target audience.">Generate 3 funny meme ideas to promote my book among its target audience.</option>
+                            </select>
+                            </div>
+                            Or
+                            <div class="mb-3">
+                                <label class="form-label">Manual Prompt</label>
+                                <input type="text" class="form-control query_prompt" value="What is this book about">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn_load_prompt">Fetch</button>
+                        </form>
+        
+                        <center>
+                            <br>
+                            <div class="spinner-border prompt-spinner-loader" role="status"><span class="visually-hidden">Loading...</span></div>
+                        </center>
+        
+                        <div class="prompt_result"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="chat-footer">
-
-            <label for="question">Question:</label>
-            <input type="text" id="question" name="question">
-            <input type="submit" value="Ask">
-        </div>
-    </div>
-
-
-
-    </form>
-
-    </div>
-    </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-</body>
-</body>
-
-</html>
+        </body>
+        
+        <style>
+            .chat-form {
+                display: none;
+            }
+        
+            .prompt-spinner-loader,
+            .pdf-spinner-loader {
+                display: none;
+            }
+        </style>
+        
+        <script>
+            $(document).ready(function () {
+                $('.btn_load_book').on('click', function (e) {
+                    e.preventDefault();
+                    $('.pdf-spinner-loader').show();
+                    $('.pdf-form').hide();
+        
+                    let pdf_url = $('.select_book').val();
+                    $.ajax({
+                        url: 'http://65.1.237.17:8000/load_book?pdf_url=' + pdf_url,
+                        type: 'GET',
+                        success: function (data) {
+                            // alert(data);
+                            $('.pdf-spinner-loader').hide();
+                            $('.chat-form').show();
+                        }
+                    });
+                });
+        
+                $('.btn_load_prompt').on('click', function (e) {
+                    e.preventDefault();
+                    $('.prompt-spinner-loader').show();
+        
+                    let query = $('.query_prompt').val();
+                    $.ajax({
+                        url: 'http://65.1.237.17:8000/ask',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            user: query
+                        }),
+                        success: function (data) {
+                            let result = data.result.replace(/\n\n/g, "<br>");
+        
+                            $('.prompt_result').append('<b>User</b>: ' + query + ' <br>');
+                            typeWriter('Bot: ' + result, $('.prompt_result'));
+                            $('.prompt_result').append('<hr>');
+                            $('.prompt-spinner-loader').hide();
+                        }
+                    });
+                });
+        
+                $('.select_prompt').on('change', function (e) {
+                    $('.query_prompt').val(this.value);
+                    $('.btn_load_prompt').trigger('click');
+                });
+        
+                function typeWriter(text, element) {
+                    let charIndex = 0;
+                    const speed = 50;
+                    const timer = setInterval(() => {
+                        if (charIndex < text.length) {
+                            element.append(text.charAt(charIndex));
+                            charIndex++;
+                        } else {
+                            clearInterval(timer);
+                        }
+                    }, speed);
+                }
+            });
+        </script>
+        </html>
+        
