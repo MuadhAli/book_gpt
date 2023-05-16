@@ -1,4 +1,5 @@
 import os
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,11 +16,6 @@ from langchain.vectorstores import Chroma
 
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from langchain.callbacks.base import CallbackManager
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI, ChatAnthropic
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.schema import HumanMessage
 
 
 os.environ["OPENAI_API_KEY"] = "sk-"
@@ -40,22 +36,33 @@ app.add_middleware(
 @app.get('/')
 async def welcome():
     return {'hey' : 'there'}
-
 @app.get('/load_book')
 async def load_book(pdf_url: str):
-    global QA, streaming_chat_gpt
+    global QA
+    # loader = OnlinePDFLoader(pdf_url)
+    # loader = UnstructuredPDFLoader('sample.pdf')
+    # pdf_data = loader.load()
+    # text_splitter = TokenTextSplitter(chunk_size = 750,chunk_overlap  = 50)
+    # pdf_doc = text_splitter.split_documents(pdf_data)
+    # embedding_cost = ( ( len(pdf_doc) * 750 ) / 1000 ) * 0.0004
+
     embeddings = OpenAIEmbeddings()
+    # vectordb = Chroma.from_documents(pdf_doc, embeddings)
     persist_directory = ''
 
-    if pdf_url == 'options':
+    if(pdf_url == 'options') :
         persist_directory = 'vector/options'
-    elif pdf_url == 'family':
+        
+    if(pdf_url == 'family') :
         persist_directory = 'vector/family'
-    elif pdf_url == 'honurable':
+
+    if(pdf_url == 'honurable') :
         persist_directory = 'vector/hourable'
-    elif pdf_url == 'mask':
+
+    if(pdf_url == 'mask') :
         persist_directory = 'vector/mask'
-    elif pdf_url == 'truth':
+
+    if(pdf_url == 'truth') :
         persist_directory = 'vector/truth'
 
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
@@ -68,25 +75,18 @@ async def load_book(pdf_url: str):
         {context}
         Question: {question}
         Answer:"""
-
+    
     PROMPT = PromptTemplate(
-        template=prompt_template,
-        input_variables=["context", "question"]
-    )
-
+            template=prompt_template, 
+            input_variables=["context", "question"]
+            )
+    
     chain_type_kwargs = {"prompt": PROMPT}
     QA = RetrievalQA.from_chain_type(
-        llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, streaming=False),
-        chain_type="stuff",
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, streaming=True),
+        chain_type="stuff", 
         retriever=vectordb.as_retriever(),
         chain_type_kwargs=chain_type_kwargs
-    )
-
-    streaming_chat_gpt = ChatOpenAI(
-        streaming=True,
-        callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
-        temperature=0,
-        verbose=True,
     )
 
     return {"status": pdf_url}
